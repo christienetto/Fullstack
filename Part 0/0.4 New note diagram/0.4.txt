@@ -1,0 +1,35 @@
+- 5 HTTP requests sent to 
+- HTTP POST request to the server address new_note, and form data sent w/HTTP POST (posts in newnote the new data)
+- Server Respoinds with HTTP status code 302 (URL redirect)
+- Because of HTTP GET from URL redirect, the server reloads generating 3 HTTP requests.
+- 3 files: main.css,main.js, and the raw data of the notes (data.json)
+
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: HTTP status code 302 (URL redirect)
+    deactivate server
+	
+	*Starts to reload browser
+	
+	browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+	
+	*Server responds with 3 files
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ] * Data with the new note added
+    deactivate server

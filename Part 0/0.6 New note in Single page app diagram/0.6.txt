@@ -1,0 +1,11 @@
+
+
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa 
+	*Sends JSON data from new note and event handler creates new note on browser and renders note list using push.
+    activate server
+    server-->>browser: Responds status 201 created (no redirect)
+    deactivate server
