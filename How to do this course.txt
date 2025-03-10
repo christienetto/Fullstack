@@ -1,8 +1,0 @@
-Just make a file in this folder for each part, do each ex, and after you do 5 parts, go push it to your github, and say that you did it on the submission system
-the submission system will have a box sayinng enrol for exam or smth, do the exam after enrolling in the open unicourse also done on the 
-submission system, then do the exam, you should get the credits then!
-
-
-VS stuff:
-to run the website/code:
-cd into the folder/open folder in VS and type 'npm run' in the terminal.
