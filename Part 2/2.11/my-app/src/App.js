@@ -1,56 +1,53 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const App = () => {
-  // const [persons, setPersons] = useState([{ name: 'Arto Hellas' }]);
-  const [newName, setNewName] = useState('');
-  const [persons, setPersons] = useState([]);
+  const [persons, setPersons] = useState([])
+  const [newName, setNewName] = useState('')
 
   useEffect(() => {
     axios.get('http://localhost:3001/persons')
-      .then(response => setPersons(response.data));
-  }, []);
+      .then(response => setPersons(response.data))
+  }, [])
 
   const handleNameChange = (event) => {
-    setNewName(event.target.value);
-  };
+    setNewName(event.target.value)
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     if (newName.trim()) {
-      setPersons([...persons, { name: newName }]);
-      setNewName('');
+      const newPerson = { name: newName }
+      axios
+        .post('http://localhost:3001/persons', newPerson)
+        .then(response => {
+          setPersons([...persons, response.data])
+          setNewName('')
+        })
     }
-  };
+  }
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          name: <input 
-                  value={newName} 
-                  onChange={handleNameChange} 
-                />
+          name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
-      {/* <h2>Numbers</h2>
-      <ul>
-        {persons.map((person, index) => (
-          <li key={index}>{person.name}</li>
-        ))}
-      </ul> */}
-      <h2>Notes</h2>
+
+      <h2>Numbers</h2>
       <ul>
         {persons.map(person => (
           <li key={person.id}>{person.name} {person.number}</li>
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
+
