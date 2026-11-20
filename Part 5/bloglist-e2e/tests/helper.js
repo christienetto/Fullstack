@@ -1,0 +1,21 @@
+const loginWith = async (page, username, password) => {
+  await page.getByRole('link', { name: 'login' }).click()
+  await page.getByLabel('username').fill(username)
+  await page.getByLabel('password').fill(password)
+  await page.getByRole('button', { name: 'login' }).click()
+}
+
+const createBlog = async (page, title, author, url) => {
+  await page.getByRole('link', { name: 'create new' }).click()
+  await page.getByPlaceholder('blog title').fill(title)
+  await page.getByPlaceholder('blog author').fill(author)
+  await page.getByPlaceholder('blog url').fill(url)
+  await page.getByRole('button', { name: 'create', exact: true }).click()
+  await page.getByRole('link', { name: title }).waitFor()
+}
+
+const openBlog = async (page, title) => {
+  await page.getByRole('link', { name: title }).click()
+}
+
+module.exports = { loginWith, createBlog, openBlog }
